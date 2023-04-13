@@ -25,7 +25,7 @@ app.set('view engine', 'ejs');
 
 mongoose.Promise = global.Promise;
 const connectionParams = {
-    useMongoClient: true
+    
 }
 mongoose.connect(config.database, connectionParams)
     .then(() => {
