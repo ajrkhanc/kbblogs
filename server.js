@@ -10,9 +10,12 @@ var Category = require('./app/models/category');
 var Post = require('./app/models/post');
 var authapi = require('./app/apis/AuthRoutes')(express);
 var controlPanel = require('./Controllers/controlPanel')(express);
+const cors = require('cors');
 
 
 var app = express();
+
+app.use(cors());
 
 app.use(morgan('dev'));
 app.use(express.static(__dirname + '/public'));
