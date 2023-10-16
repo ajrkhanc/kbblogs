@@ -8,6 +8,7 @@ var Feedback = require('../models/feedback');
 var Jobform = require('../models/jobform');
 var Bmeassesment = require('../models/bmeassesment');
 var Bmeassesment = require('../models/bmeassesment');
+var SearchbarModel = require('../models/searchbarmodel');
 var Cservicequiz = require('../models/customer-service-quiz');
 var cors = require('cors');
 const formidable = require('formidable');
@@ -38,6 +39,24 @@ module.exports = function (express) {
     });
   });
 
+     //get search bar
+apiRouter.get('/getAll/:keyword', async (req, res) => {
+  try{
+      //const data = await Model.find();
+      //const keyword = req.body.keyword;
+      const keyword = req.params.keyword;
+
+      const data = await SearchbarModel.find({
+          $or: [
+              { keyword: { $regex: keyword, $options: "i" } } // Case-insensitive search
+          ]
+      })
+      res.json(data)
+  }
+  catch(error){
+      res.status(500).json({message: error.message})
+  }
+})
 
    // Customer Sservice Quiz
    apiRouter.route('/customer-service-quiz/')
